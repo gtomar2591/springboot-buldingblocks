@@ -1,0 +1,56 @@
+package com.gk.demo.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gk.demo.entity.User;
+import com.gk.demo.service.UserService;
+
+@RestController
+@RequestMapping("user")
+public class UserController {
+	
+	@Autowired
+	private UserService userService;
+	
+	@GetMapping("/users")
+	public List<User> getAllUser(){
+		return userService.getAllUser();
+	}
+	
+	@PostMapping("/users")
+	public User createUser(@RequestBody User user) {
+		return userService.createUser(user);
+	}
+	
+	@GetMapping("/users/{id}")
+	public Optional<User> getUserById(@PathVariable("id") long id ){
+		return userService.getUserById(id);
+	}
+	
+	@PutMapping("/users/{id}")
+	public User updateUserById(@PathVariable("id") long id, @RequestBody User user) {
+		return userService.updateUserById(id, user);
+	}
+	
+	@DeleteMapping("/users/{id}")
+	public void deleteUserById(@PathVariable("id") long id) {
+		userService.deleteUserById(id);
+	}
+	
+	@GetMapping("/byusername/{username}")
+	public User getUserByUsername(@PathVariable("username") String username) {
+		return userService.getUserByUsername(username);
+	}
+
+}
