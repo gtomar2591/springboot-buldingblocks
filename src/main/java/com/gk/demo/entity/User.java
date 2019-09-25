@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="user")
@@ -13,8 +15,12 @@ public class User {
 	@Id
 	@GeneratedValue
 	private long id;
+	
+	@NotEmpty(message="username should not be empty")
 	@Column(name="USER_NAME", length=50,nullable=false,unique=true)
 	private String username;
+	
+	@Size(min=2, message="First name should have at least two character")
 	@Column(name="FIRST_NAME", length=50,nullable=false)
 	private String firstname;
 	@Column(name="LAST_NAME", length=50,nullable=false)
